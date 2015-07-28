@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/zatvobor/ember-coucdb-kit.svg?branch=2.0.0-alpha)](https://travis-ci.org/zatvobor/ember-coucdb-kit)[![License](https://img.shields.io/badge/license-MIT-blue.svg)](MIT-LICENSE)
+[![Build Status](https://travis-ci.org/validusa/ember-couch.svg?branch=2.0.0-alpha)](https://travis-ci.org/zatvobor/ember-coucdb-kit)[![License](https://img.shields.io/badge/license-MIT-blue.svg)](MIT-LICENSE)
 
-#### ember-couchdb-kit
+#### ember-couch
 
 An `ember-data` kit for Apache CouchDB. A collection of adapters to work with CouchDB documents, attachments, revisions, changes feed.
 
@@ -21,4 +21,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 #### License
 
-`ember-couchdb-kit` source code is released under MIT-License. Check [MIT-LICENSE](MIT-LICENSE) for more details.
+`ember-couch` source code is released under MIT-License. Check [MIT-LICENSE](MIT-LICENSE) for more details.
