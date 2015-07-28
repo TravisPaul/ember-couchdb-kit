@@ -10,9 +10,7 @@ Ember.MODEL_FACTORY_INJECTIONS = true;
 App = Ember.Application.extend({
     modulePrefix: config.modulePrefix,
     podModulePrefix: config.podModulePrefix,
-    Resolver: Resolver,
-    Boards: config.APP.Boards,
-    Host: config.APP.Host
+    Resolver: Resolver
 });
 
 loadInitializers(App, config.modulePrefix);

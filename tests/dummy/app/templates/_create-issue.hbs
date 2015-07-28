@@ -1,14 +1,14 @@
-{{#view App.NewIssueView}}
-    {{#if view.create}}
+{{#eck-new-issue}}
+    {{#if create}}
         <div class="form-group">
-            {{#view App.FocusedTextArea viewName="TextArea" class="form-control"}}
-            {{/view}}
+            {{#eck-focused-text-area viewName="TextArea" class="form-control"}}
+            {{/eck-focused-text-area}}
         </div>
         <button type="submit" class="btn btn-success"> Save </button>
-        {{#view App.CancelView}}
+        {{#eck-cancel}}
             <button class="btn btn-default"> &times; </button>
-        {{/view}}
+        {{/eck-cancel}}
     {{else}}
         <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add new issue</button>
     {{/if}}
-{{/view}}
+{{/eck-new-issue}}

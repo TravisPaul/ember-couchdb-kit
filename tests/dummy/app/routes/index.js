@@ -3,6 +3,8 @@ import Ember from "ember";
 import ChangesFeed from "ember-couch/changes-feed";
 
 export default Ember.Route.extend({
+    boards: ["common", "intermediate", "advanced"],
+    host: "http://localhost:5984",
 
     setupController: function (controller, model) {
         this._setupPositionHolders();
@@ -14,7 +16,7 @@ export default Ember.Route.extend({
         this.render();
         // link particular controller with its outlet
         var self = this;
-        App.Boards.forEach(function (label) {
+        self.get("boards").forEach(function (label) {
             self.render("board", {
                 outlet: label,
                 into: "index",
@@ -25,7 +27,7 @@ export default Ember.Route.extend({
 
     _setupPositionHolders: function () {
         var self = this;
-        App.Boards.forEach(function (type) {
+        self.get("boards").forEach(function (type) {
             self.get("store").find("position", type).then(
                 function (position) {
                     // set issues into appropriate controller through position model
@@ -53,7 +55,7 @@ export default Ember.Route.extend({
             },
             position = ChangesFeed.create({
                 db: "boards",
-                host: App.Host,
+                host: this.get("host"),
                 content: params
             }),
             self = this;
@@ -83,7 +85,7 @@ export default Ember.Route.extend({
             },
             issue = ChangesFeed.create({
                 db: "boards",
-                host: App.Host,
+                host: this.get("host"),
                 content: params
             }),
             self = this;

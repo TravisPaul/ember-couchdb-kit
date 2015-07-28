@@ -1,23 +1,23 @@
 <ul class="list-group">
-    {{#each controller.content}}
+    {{#each content}}
 
-        {{#view App.IssueView contextBinding=this}}
+        {{#eck-issue context=this}}
             <li class="list-group-item">
-                {{#if view.edit}}
+                {{#if edit}}
                     <div class="form-group">
-                        {{#view App.FocusedTextArea class="form-control" viewName="TextAreaEdit" valueBinding=view.context.text}}
-                        {{/view}}
+                        {{#eck-focused-text-area class="form-control" viewName="TextAreaEdit" value=context.text}}
+                        {{/eck-focused-text-area}}
                     </div>
                     {{#if attachments}}
                         {{#each attachments}}
                             {{file_name}}
-                            {{#view App.DeleteAttachmentView contextBinding=this}} &times; {{/view}}
+                            {{#eck-delete-attachment context=this}} &times; {{/eck-delete-attachment}}
                         {{/each}}
                     {{/if}}
                     <button type="submit" class="btn btn-xs btn-success"> Ok </button>
-                    {{#view App.AttachmentView contextBinding=this}}
+                    {{#eck-attachment context=this}}
                         <button {{action "browseFile" target=view}} class="btn btn-xs btn-default"> Attach </button>
-                    {{/view}}
+                    {{/eck-attachment}}
                 {{else}}
                     {{text}}
                     {{#if attachments}}
@@ -28,18 +28,18 @@
                     {{/if}}
                     <div class="btn-group pull-right">
                         <button type="submit" class="btn btn-xs btn-info">Edit</button>
-                        {{#view App.DeleteIssueView contextBinding=this}}
+                        {{#eck-delete-issue context=this}}
                             &times;
-                        {{/view}}
+                        {{/eck-delete-issue}}
                     </div>
                 {{/if}}
             </li>
-        {{/view}}
+        {{/eck-issue}}
     {{else}}
-        {{#view App.IssueView draggable=false}}
+        {{#eck-issue draggable=false}}
             <li class="list-group-item">
                 Empty board...
             </li>
-        {{/view}}
+        {{/eck-issue}}
     {{/each}}
 </ul>

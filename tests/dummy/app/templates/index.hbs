@@ -7,15 +7,17 @@
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                    <h5 class="navbar-brand">Ember Couch In Action</h5>
+                <h5 class="navbar-brand">Ember Couch In Action</h5>
             </div>
         </div>
     </nav>
     <div class="jumbotron">
         <p>A simple app to demonstrate usage of <strong>Ember.js</strong> adapter for <strong>CouchDB</strong>. To run this demo locally: </p>
-        <p><small><code>$ git clone git@github.com:roundscope/ember-couch.git</code></small></p>
-        <p><small><code>$ cd ember-couch/example</code></small></p>
-        <p><small><code>$ npm install && grunt server</code></small></p>
+        <p><small>Create a local Couch database called "boards"</small></p>
+        <p><small>Create three blank documents: "common", "intermediate", and "advanced"</small></p>
+        <p><small><code>$ git clone git@github.com:ValidUSA/ember-couch.git</code></small></p>
+        <p><small><code>$ cd ember-couch</code></small></p>
+        <p><small><code>$ npm install && ember server</code></small></p>
     </div>
     <div class="row">
         <div class="col-lg-4">{{outlet "common"}}</div>

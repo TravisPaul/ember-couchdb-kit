@@ -15,9 +15,10 @@ export default Ember.ObjectProxy.extend({
         return this._ajax.apply(this, arguments);
     },
     fromTail: function (callback) {
-        var _this = this;
+        var _this = this,
+            url = Ember.String.fmt("%@%@/_changes?descending=true&limit=1", this._buildUrl(), this.get("db"));
         return Ember.$.ajax({
-            url: "%@%@/_changes?descending=true&limit=1".fmt(this._buildUrl(), this.get("db")),
+            url: url,
             dataType: "json",
             success: function (data) {
                 _this.set("since", data.last_seq);

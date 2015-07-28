@@ -14,8 +14,7 @@ module.exports = function (environment) {
         },
 
         APP: {
-            Boards: ["common", "intermediate", "advanced"],
-            Host: "http://localhost:5984"
+
         }
     };
 
@@ -41,6 +40,10 @@ module.exports = function (environment) {
 
     if (environment === "production") {
 
+    }
+
+    ENV.contentSecurityPolicy: {
+        "connect-src": "'self' http://localhost:5984"
     }
 
     return ENV;
