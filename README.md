@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/validusa/ember-couch.svg?branch=2.0.0-alpha)](https://travis-ci.org/validusa/ember-couch)[![License](https://img.shields.io/badge/license-MIT-blue.svg)](MIT-LICENSE)
+[![Build Status](https://travis-ci.org/ValidUSA/ember-couch.svg?branch=2.0.0-alpha)](https://travis-ci.org/ValidUSA/ember-couch)[![License](https://img.shields.io/badge/license-MIT-blue.svg)](MIT-LICENSE)
 
 #### ember-couch
 
