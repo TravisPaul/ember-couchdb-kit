@@ -42,8 +42,9 @@ module.exports = function (environment) {
 
     }
 
-    ENV.contentSecurityPolicy: {
-        "connect-src": "'self' http://localhost:5984"
+    ENV.contentSecurityPolicy = {
+        "connect-src": "'self' http://localhost:5984",
+        "style-src": "'self' 'unsafe-inline'"
     }
 
     return ENV;

@@ -72,7 +72,7 @@ export default Ember.ObjectProxy.extend({
         var feed, params;
         feed = this.feed || "longpool";
         params = this._makeFeedParams();
-        return "%@%@/_changes?feed=%@%@".fmt(this._buildUrl(), this.get("db"), feed, params);
+        return Ember.String.fmt("%@%@/_changes?feed=%@%@", this._buildUrl(), this.get("db"), feed, params);
     },
     _makeFeedParams: function () {
         var path,
@@ -80,7 +80,7 @@ export default Ember.ObjectProxy.extend({
         path = "";
         ["include_docs", "limit", "descending", "heartbeat", "timeout", "filter", "filter_param", "style", "since"].forEach(function (param) {
             if (_this.get(param)) {
-                return path += "&%@=%@".fmt(param, _this.get(param));
+                return path += Ember.String.fmt("&%@=%@", param, _this.get(param));
             }
         });
         return path;
