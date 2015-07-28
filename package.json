@@ -21,6 +21,7 @@
   "author": "Valid USA",
   "license": "MIT",
   "devDependencies": {
+    "addon": "0.0.0",
     "broccoli-asset-rev": "^2.0.2",
     "broccoli-jscs": "0.0.22",
     "ember-cli": "1.13.1",
@@ -38,7 +39,8 @@
     "ember-disable-prototype-extensions": "^1.0.0",
     "ember-disable-proxy-controllers": "^1.0.0",
     "ember-export-application-global": "^1.0.2",
-    "ember-try": "0.0.6"
+    "ember-try": "0.0.6",
+    "ember-watson": "0.6.0"
   },
   "keywords": [
     "ember-addon",

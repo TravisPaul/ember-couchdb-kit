@@ -21,4 +21,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 #### License
 
-`ember-couch` source code is released under MIT-License. Check [MIT-LICENSE](MIT-LICENSE) for more details.
+`ember-couch` source code is released under MIT-License. Check [LICENSE.md](LICENSE.md) for more details.
