@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-couchdb-kit'
+    name: 'ember-couch'
 };

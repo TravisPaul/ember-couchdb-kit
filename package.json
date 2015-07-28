@@ -1,5 +1,5 @@
 {
-  "name": "ember-couchdb-kit",
+  "name": "ember-couch",
   "version": "2.0.0-alpha",
   "description": "An Ember.js adapter for Apache CouchDB",
   "directories": {
@@ -13,15 +13,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Zatvobor/ember-couchdb-kit.git"
+    "url": "https://github.com/ValidUSA/ember-couch.git"
   },
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "Aleksey Zatvobor",
+  "author": "Valid USA",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.2",
+    "broccoli-jscs": "0.0.22",
     "ember-cli": "1.13.1",
     "ember-cli-app-version": "0.4.0",
     "ember-cli-content-security-policy": "0.4.0",
@@ -34,13 +35,16 @@
     "ember-cli-release": "0.2.3",
     "ember-cli-uglify": "^1.0.1",
     "ember-data": "1.13.6",
+    "ember-disable-prototype-extensions": "^1.0.0",
     "ember-disable-proxy-controllers": "^1.0.0",
     "ember-export-application-global": "^1.0.2",
-    "ember-disable-prototype-extensions": "^1.0.0",
     "ember-try": "0.0.6"
   },
   "keywords": [
-    "ember-addon", "couch db"
+    "ember-addon",
+    "couch db",
+    "couchdb",
+    "couch"
   ],
   "dependencies": {
     "ember-cli-babel": "^5.0.0"

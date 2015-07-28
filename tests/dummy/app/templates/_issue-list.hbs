@@ -1,0 +1,45 @@
+<ul class="list-group">
+    {{#each controller.content}}
+
+        {{#view App.IssueView contextBinding=this}}
+            <li class="list-group-item">
+                {{#if view.edit}}
+                    <div class="form-group">
+                        {{#view App.FocusedTextArea class="form-control" viewName="TextAreaEdit" valueBinding=view.context.text}}
+                        {{/view}}
+                    </div>
+                    {{#if attachments}}
+                        {{#each attachments}}
+                            {{file_name}}
+                            {{#view App.DeleteAttachmentView contextBinding=this}} &times; {{/view}}
+                        {{/each}}
+                    {{/if}}
+                    <button type="submit" class="btn btn-xs btn-success"> Ok </button>
+                    {{#view App.AttachmentView contextBinding=this}}
+                        <button {{action "browseFile" target=view}} class="btn btn-xs btn-default"> Attach </button>
+                    {{/view}}
+                {{else}}
+                    {{text}}
+                    {{#if attachments}}
+                        <span>, attachments:</span>
+                        {{#each attachments}}
+                            {{linkToAttachment this}}
+                        {{/each}}
+                    {{/if}}
+                    <div class="btn-group pull-right">
+                        <button type="submit" class="btn btn-xs btn-info">Edit</button>
+                        {{#view App.DeleteIssueView contextBinding=this}}
+                            &times;
+                        {{/view}}
+                    </div>
+                {{/if}}
+            </li>
+        {{/view}}
+    {{else}}
+        {{#view App.IssueView draggable=false}}
+            <li class="list-group-item">
+                Empty board...
+            </li>
+        {{/view}}
+    {{/each}}
+</ul>

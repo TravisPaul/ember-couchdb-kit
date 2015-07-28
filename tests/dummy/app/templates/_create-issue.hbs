@@ -1,0 +1,14 @@
+{{#view App.NewIssueView}}
+    {{#if view.create}}
+        <div class="form-group">
+            {{#view App.FocusedTextArea viewName="TextArea" class="form-control"}}
+            {{/view}}
+        </div>
+        <button type="submit" class="btn btn-success"> Save </button>
+        {{#view App.CancelView}}
+            <button class="btn btn-default"> &times; </button>
+        {{/view}}
+    {{else}}
+        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add new issue</button>
+    {{/if}}
+{{/view}}
