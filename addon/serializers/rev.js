@@ -3,6 +3,7 @@ import DS from "ember-data";
 import sharedStore from "../services/shared-store";
 
 export default DS.RESTSerializer.extend({
+    isNewSerializerAPI: true,
     sharedStore: sharedStore,
     primaryKey: "id",
     normalize: function (type, hash, prop) {

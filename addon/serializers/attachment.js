@@ -1,6 +1,7 @@
 import DS from "ember-data";
 
 export default DS.RESTSerializer.extend({
+    isNewSerializerAPI: true,
     primaryKey: "id",
     normalize: function (type, hash) {
         var rev, self;
