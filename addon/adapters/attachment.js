@@ -4,7 +4,12 @@ import sharedStore from "../services/shared-store";
 
 export default DS.Adapter.extend({
     sharedStore: sharedStore,
+    // DEPRECATED
+    // Find has been deprecated as of Ember Data 1.13. This has been left for backwards compatibility.
     find: function (store, type, id) {
+        return this.findRecord(store, type, id);
+    },
+    findRecord: function (store, type, id) {
         var sharedStore = this.get("sharedStore");
         return new Ember.RSVP.Promise(function (resolve, reject) {
             return Ember.run(null, resolve, {
