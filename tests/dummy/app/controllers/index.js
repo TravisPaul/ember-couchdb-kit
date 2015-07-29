@@ -2,7 +2,7 @@
 import Ember from "ember";
 
 export default Ember.Controller.extend({
-    content: Ember.computed.alias("position.issues"),
+    model: Ember.computed.alias("position.issues"),
 
     actions: {
         createIssue: function (text) {
@@ -72,12 +72,12 @@ export default Ember.Controller.extend({
         },
 
         dropIssue: function (viewController, viewModel, thisModel) {
-            var position = this.get("content").toArray().indexOf(thisModel),
+            var position = this.get("model").toArray().indexOf(thisModel),
                 self = this;
             if (position === -1) {
                 position = 0;
             }
-            viewController.get("content").removeObject(viewModel);
+            viewController.get("model").removeObject(viewModel);
 
             if (viewController.name !== this.name) {
                 viewController.get("position").save().then(function () {
@@ -85,7 +85,7 @@ export default Ember.Controller.extend({
                 });
             }
 
-            this.get("content").insertAt(position, viewModel);
+            this.get("model").insertAt(position, viewModel);
             this.get("position").save();
         }
     }
