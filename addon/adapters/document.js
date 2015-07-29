@@ -1,8 +1,9 @@
 import Ember from "ember";
 import DS from "ember-data";
+import sharedStore from "../services/shared-store";
 
 export default DS.Adapter.extend({
-    sharedStore: Ember.inject.service(),
+    sharedStore: sharedStore,
     defaultSerializer: "_default",
     customTypeLookup: false,
     typeViewName: "all",
@@ -25,7 +26,7 @@ export default DS.Adapter.extend({
         return url;
     },
     ajax: function (url, type, normalizeResponse, hash) {
-        return this._ajax("%@/%@".fmt(this.buildURL(), url || ""), type, normalizeResponse, hash);
+        return this._ajax(Ember.String.fmt("%@/%@", this.buildURL(), url || ""), type, normalizeResponse, hash);
     },
     _ajax: function (url, type, normalizeResponse, hash) {
         var adapter;
@@ -100,7 +101,7 @@ export default DS.Adapter.extend({
         _ref = id.split("/").slice(0, 2);
         _id = _ref[0];
         _rev = _ref[1];
-        url = "%@?rev=%@".fmt(_id, _rev);
+        url = Ember.String.fmt("%@?rev=%@", _id, _rev);
         normalizeResponse = function (data) {
             var _modelJson;
             this._normalizeRevision(data);
@@ -126,8 +127,8 @@ export default DS.Adapter.extend({
             _ref = id.split("/").slice(0, 2);
             _id = _ref[0];
             _rev = _ref[1];
-            url = "%@?rev=%@".fmt(_id, _rev);
-            url = "%@/%@".fmt(_this.buildURL(), url);
+            url = Ember.String.fmt("%@?rev=%@", _id, _rev);
+            url = Ember.String.fmt("%@/%@", _this.buildURL(), url);
             hash.url = url;
             hash.type = "GET";
             hash.dataType = "json";
@@ -181,7 +182,7 @@ export default DS.Adapter.extend({
             json.total_rows = data.total_rows;
             return json;
         };
-        return this.ajax("_design/%@/_view/%@".fmt(designDoc, query.viewName), "GET", normalizeResponse, {
+        return this.ajax(Ember.String.fmt("_design/%@/_view/%@", designDoc, query.viewName), "GET", normalizeResponse, {
             context: this,
             data: query.options
         });
@@ -204,7 +205,7 @@ export default DS.Adapter.extend({
             include_docs: true,
             key: "\"" + typeString + "\""
         };
-        return this.ajax("_design/%@/_view/%@".fmt(designDoc, typeViewName), "GET", normalizeResponse, {
+        return this.ajax(Ember.String.fmt("_design/%@/_view/%@", designDoc, typeViewName), "GET", normalizeResponse, {
             data: data
         });
     },
@@ -228,7 +229,7 @@ export default DS.Adapter.extend({
         return this._push(store, type, snapshot, json);
     },
     deleteRecord: function (store, type, snapshot) {
-        return this.ajax("%@?rev=%@".fmt(snapshot.id, snapshot.attr("rev")), "DELETE", (function () {}), {});
+        return this.ajax(Ember.String.fmt("%@?rev=%@", snapshot.id, snapshot.attr("rev")), "DELETE", (function () {}), {});
     },
     _updateAttachmnets: function (snapshot, json) {
         var _attachments, sharedStore;

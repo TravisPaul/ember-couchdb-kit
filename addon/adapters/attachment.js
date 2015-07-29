@@ -1,8 +1,9 @@
 import Ember from "ember";
 import DS from "ember-data";
+import sharedStore from "../services/shared-store";
 
 export default DS.Adapter.extend({
-    sharedStore: Ember.inject.service(),
+    sharedStore: sharedStore,
     find: function (store, type, id) {
         var sharedStore = this.get("sharedStore");
         return new Ember.RSVP.Promise(function (resolve, reject) {
@@ -27,7 +28,7 @@ export default DS.Adapter.extend({
     },
     createRecord: function (store, type, record) {
         var adapter, url;
-        url = "%@/%@?rev=%@".fmt(this.buildURL(), record.get("id"), record.get("rev"));
+        url = Ember.String.fmt("%@/%@?rev=%@", this.buildURL(), record.get("id"), record.get("rev"));
         adapter = this;
         return new Ember.RSVP.Promise(function (resolve, reject) {
             var data, request,

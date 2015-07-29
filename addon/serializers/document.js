@@ -1,8 +1,9 @@
 import Ember from "ember";
 import DS from "ember-data";
+import sharedStore from "../services/shared-store";
 
 export default DS.RESTSerializer.extend({
-    sharedStore: Ember.inject.service(),
+    sharedStore: sharedStore,
     primaryKey: "_id",
     normalize: function (type, hash, prop) {
         this.normalizeId(hash);
@@ -35,7 +36,7 @@ export default DS.RESTSerializer.extend({
         return this._super(snapshot, options);
     },
     addHistoryId: function (hash) {
-        hash.history = "%@/history".fmt(hash.id);
+        hash.history = Ember.String.fmt("%@/history", hash.id);
         return hash.history;
     },
     normalizeAttachments: function (attachments, type, hash) {

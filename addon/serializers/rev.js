@@ -1,8 +1,9 @@
 import Ember from "ember";
 import DS from "ember-data";
+import sharedStore from "../services/shared-store";
 
 export default DS.RESTSerializer.extend({
-    sharedStore: Ember.inject.service(),
+    sharedStore: sharedStore,
     primaryKey: "id",
     normalize: function (type, hash, prop) {
         this.normalizeRelationships(type, hash);

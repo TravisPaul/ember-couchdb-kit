@@ -1,17 +1,18 @@
 import Ember from "ember";
 import DS from "ember-data";
+import sharedStore from "../services/shared-store";
 
 export default DS.Adapter.extend({
-    sharedStore: Ember.inject.service(),
+    sharedStore: sharedStore,
     find: function (store, type, id) {
-        return this.ajax("%@?revs_info=true".fmt(id.split("/")[0]), "GET", {
+        return this.ajax(Ember.String.fmt("%@?revs_info=true", id.split("/")[0]), "GET", {
             context: this
         }, id);
     },
     updateRecord: function (store, type, record) {},
     deleteRecord: function (store, type, record) {},
     ajax: function (url, type, hash, id) {
-        return this._ajax("%@/%@".fmt(this.buildURL(), url || ""), type, hash, id);
+        return this._ajax(Ember.String.fmt("%@/%@", this.buildURL(), url || ""), type, hash, id);
     },
     _ajax: function (url, type, hash, id) {
         var sharedStore = this.get("sharedStore");

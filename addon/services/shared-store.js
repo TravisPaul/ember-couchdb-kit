@@ -18,7 +18,7 @@ export default Ember.Service.extend({
     mapRevIds: function (type, key) {
         var _this = this;
         return this.get(type, key)._revs_info.map(function (_rev) {
-            return "%@/%@".fmt(_this.get(type, key)._id, _rev.rev);
+            return Ember.String.fmt("%@/%@", _this.get(type, key)._id, _rev.rev);
         });
     },
     stopAll: function () {

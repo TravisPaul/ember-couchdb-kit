@@ -13,8 +13,11 @@
     </nav>
     <div class="jumbotron">
         <p>A simple app to demonstrate usage of <strong>Ember.js</strong> adapter for <strong>CouchDB</strong>. To run this demo locally: </p>
-        <p><small>Create a local Couch database called "boards"</small></p>
-        <p><small>Create three blank documents: "common", "intermediate", and "advanced"</small></p>
+        <p><small><code>$ curl -X PUT http://localhost:5984/boards</code></small></p>
+        <p><small><code>$ curl -X PUT http://localhost:5984/boards/_design/issues -H 'Content-Type: application/json' -d '{"_id": "_design/issues","language": "javascript","filters": {"only_positions": "function(doc, req) { if(doc.type == \"position\") { return true; } }","issue": "function(doc, req) {if(doc.type == \"issue\") { return true; } }"}}'</code></small></p>
+        <p><small><code>$ curl -X PUT http://localhost:5984/boards/_design/issues -H 'Content-Type: application/json' -d '{"_id": "common"}'</code></small></p>
+        <p><small><code>$ curl -X PUT http://localhost:5984/boards/_design/issues -H 'Content-Type: application/json' -d '{"_id": "intermediate"}'</code></small></p>
+        <p><small><code>$ curl -X PUT http://localhost:5984/boards/_design/issues -H 'Content-Type: application/json' -d '{"_id": "advanced"}'</code></small></p>
         <p><small><code>$ git clone git@github.com:ValidUSA/ember-couch.git</code></small></p>
         <p><small><code>$ cd ember-couch</code></small></p>
         <p><small><code>$ npm install && ember server</code></small></p>
