@@ -81,7 +81,12 @@ export default DS.Adapter.extend({
     shouldCommit: function (snapshot, relationships) {
         return this._super.apply(arguments);
     },
+    // DEPRECATED
+    // Find has been deprecated as of Ember Data 1.13. This has been left for backwards compatibility.
     find: function (store, type, id) {
+        return this.findRecord(store, type, id);
+    },
+    findRecord: function (store, type, id) {
         var normalizeResponse;
         if (this._checkForRevision(id)) {
             return this.findWithRev(store, type, id);
