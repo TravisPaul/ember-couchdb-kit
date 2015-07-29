@@ -155,7 +155,7 @@ export default DS.Adapter.extend({
                 var json,
                     _this = this;
                 json = {};
-                json[Ember.String.pluralize(type.modelName)] = data.rows.getEach("doc").map(function (doc) {
+                json[Ember.String.pluralize(type.modelName)] = data.rows.map(function (doc) {
                     return _this._normalizeRevision(doc);
                 });
                 return json;

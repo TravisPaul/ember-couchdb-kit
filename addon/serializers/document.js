@@ -21,16 +21,18 @@ export default DS.RESTSerializer.extend({
         this.applyTransforms(type, hash);
         return hash;
     },
-    extractSingle: function (store, type, payload, id, requestType) {
+    normalizeSingleResponse: function (store, type, payload, id, requestType) {
         return this._super(store, type, payload, id, requestType);
     },
     extractMeta: function (store, type, payload) {
+        var result = {};
         if (payload && payload.total_rows) {
-            store.setMetadataFor(type, {
+            result = {
                 total_rows: payload.total_rows
-            });
+            };
             delete payload.total_rows;
         }
+        return result;
     },
     serialize: function (snapshot, options) {
         return this._super(snapshot, options);

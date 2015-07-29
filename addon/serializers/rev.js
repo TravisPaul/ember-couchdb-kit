@@ -6,13 +6,13 @@ export default DS.RESTSerializer.extend({
     sharedStore: sharedStore,
     primaryKey: "id",
     normalize: function (type, hash, prop) {
-        this.normalizeRelationships(type, hash);
+        this.extractRelationships(type, hash);
         return this._super(type, hash, prop);
     },
     extractId: function (type, hash) {
         return hash._id || hash.id;
     },
-    normalizeRelationships: function (type, hash) {
+    extractRelationships: function (type, hash) {
         var sharedStore = this.get("sharedStore");
         return type.eachRelationship((function (key, relationship) {
             if (relationship.kind === "belongsTo") {
