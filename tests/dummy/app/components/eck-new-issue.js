@@ -20,11 +20,20 @@ export default Ember.Component.extend({
         var text;
         event.preventDefault();
         if (this.get("create")) {
-            text = this.get("TextArea.value");
+            text = this.get("childViews")[0].element.value;
             if (!Ember.isEmpty(text)) {
-                this.get("controller").send("createIssue", text);
+                this.send("createNewIssue", text);
             }
         }
         this.toggleProperty("create");
+    },
+    actions: {
+        createNewIssue: function (text) {
+            this.set("action", "createIssue");
+            this.sendAction("action", text);
+        },
+        setCreateIssue: function (val) {
+            this.set("create", val);
+        }
     }
 });

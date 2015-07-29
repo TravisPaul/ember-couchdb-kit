@@ -5,6 +5,12 @@ export default Ember.Component.extend({
 
     click: function (event) {
         event.preventDefault();
-        this.set("parentView.create", false);
+        this.send("cancelIssueCreate");
+    },
+    actions: {
+        cancelIssueCreate: function () {
+            this.set("action", "setCreateIssue");
+            this.sendAction("action", false);
+        }
     }
 });

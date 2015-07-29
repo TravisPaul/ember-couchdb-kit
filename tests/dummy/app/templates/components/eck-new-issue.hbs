@@ -1,0 +1,12 @@
+{{#if create}}
+    <div class="form-group">
+        {{#eck-focused-text-area viewName="TextArea" class="form-control"}}
+        {{/eck-focused-text-area}}
+    </div>
+    <button type="submit" class="btn btn-success"> Save </button>
+    {{#eck-cancel}}
+        <button class="btn btn-default"> &times; </button>
+    {{/eck-cancel}}
+{{else}}
+    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add new issue</button>
+{{/if}}

@@ -1,7 +1,11 @@
 import Ember from "ember";
 
 export default Ember.Component.extend({
-    elementDidChange: function () {
-        this.$().focus();
-    }.observes("element")
+    tagName: "textarea"
+    // elementDidChange: function () {
+    //     this.$().focus();
+    // }.observes("element")
+    // elementDidChange: Ember.observer("element", function () {
+    //     this.$().focus();
+    // })
 });
