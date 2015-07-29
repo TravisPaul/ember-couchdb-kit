@@ -1,7 +1,7 @@
 <ul class="list-group">
-    {{#each content}}
+    {{#each content as |cont|}}
 
-        {{#eck-issue context=this}}
+        {{#eck-issue context=cont}}
             <li class="list-group-item">
                 {{#if edit}}
                     <div class="form-group">
@@ -9,26 +9,26 @@
                         {{/eck-focused-text-area}}
                     </div>
                     {{#if attachments}}
-                        {{#each attachments}}
-                            {{file_name}}
-                            {{#eck-delete-attachment context=this}} &times; {{/eck-delete-attachment}}
+                        {{#each attachments as |attachment|}}
+                            {{attachment.file_name}}
+                            {{#eck-delete-attachment context=attachment}} &times; {{/eck-delete-attachment}}
                         {{/each}}
                     {{/if}}
                     <button type="submit" class="btn btn-xs btn-success"> Ok </button>
-                    {{#eck-attachment context=this}}
+                    {{#eck-attachment context=cont}}
                         <button {{action "browseFile" target=view}} class="btn btn-xs btn-default"> Attach </button>
                     {{/eck-attachment}}
                 {{else}}
-                    {{text}}
+                    {{cont.text}}
                     {{#if attachments}}
                         <span>, attachments:</span>
-                        {{#each attachments}}
-                            {{linkToAttachment this}}
+                        {{#each attachments as |attachment|}}
+                            {{linkToAttachment attachment}}
                         {{/each}}
                     {{/if}}
                     <div class="btn-group pull-right">
                         <button type="submit" class="btn btn-xs btn-info">Edit</button>
-                        {{#eck-delete-issue context=this}}
+                        {{#eck-delete-issue context=cont}}
                             &times;
                         {{/eck-delete-issue}}
                     </div>
