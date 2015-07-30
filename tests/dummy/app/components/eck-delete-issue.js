@@ -7,5 +7,11 @@ export default Ember.Component.extend({
     click: function (event) {
         event.preventDefault();
         this.get("controller").send("deleteIssue", this.get("context"));
+    },
+    actions: {
+        deleteIssue: function (context) {
+            this.set("action", "deleteIssue");
+            this.sendAction("action", context);
+        }
     }
 });
