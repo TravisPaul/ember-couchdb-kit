@@ -30,7 +30,7 @@ export default DS.Adapter.extend({
     },
     _ajax: function (url, type, normalizeResponse, hash) {
         var adapter;
-        if (hash === null) {
+        if (!hash) {
             hash = {};
         }
         adapter = this;

@@ -6,7 +6,7 @@ export default Ember.Component.extend({
 
     click: function (event) {
         event.preventDefault();
-        this.get("controller").send("deleteIssue", this.get("context"));
+        this.get("controller").send("deleteIssue", this.get("value"));
     },
     actions: {
         deleteIssue: function (context) {

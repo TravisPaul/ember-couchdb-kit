@@ -6,5 +6,6 @@ export default DS.Model.extend({
     }),
     type: DS.attr("string", {
         defaultValue: "position"
-    })
+    }),
+    rev: DS.attr("string")
 });
