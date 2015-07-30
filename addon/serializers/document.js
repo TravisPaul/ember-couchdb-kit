@@ -5,7 +5,7 @@ import sharedStore from "../services/shared-store";
 export default DS.RESTSerializer.extend({
     isNewSerializerAPI: true,
     sharedStore: sharedStore,
-    primaryKey: "_id",
+    primaryKey: "id",
     normalize: function (type, hash, prop) {
         this.normalizeId(hash);
         this.normalizeAttachments(hash._attachments, type.modelName, hash);
@@ -20,7 +20,8 @@ export default DS.RESTSerializer.extend({
             return hash;
         }
         this.applyTransforms(type, hash);
-        return hash;
+        // return hash;
+        return this._super(type, hash, prop);
     },
     normalizeSingleResponse: function (store, type, payload, id, requestType) {
         return this._super(store, type, payload, id, requestType);

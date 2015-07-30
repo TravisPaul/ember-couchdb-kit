@@ -226,7 +226,7 @@ export default DS.Adapter.extend({
             associations: true,
             includeId: true
         });
-        snapData = snapshot.record._data;
+        snapData = snapshot.record;
         if ("attachments" in snapData ? snapData.attachments.length > 0 : void 0) {
             this._updateAttachmnets(snapshot, json);
         }

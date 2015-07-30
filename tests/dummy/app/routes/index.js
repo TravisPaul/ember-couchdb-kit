@@ -28,7 +28,7 @@ export default Ember.Route.extend({
     _setupPositionHolders: function () {
         var self = this;
         self.get("boards").forEach(function (type) {
-            self.get("store").find("position", type).then(
+            self.get("store").findRecord("position", type).then(
                 function (position) {
                     // set issues into appropriate controller through position model
                     self.controllerFor(type).set("position", position);
@@ -100,7 +100,7 @@ export default Ember.Route.extend({
         var self = this;
         // apply received updates
         data.forEach(function (obj) {
-            var issue = self.get("store").all("issue").toArray().find(function (i) {
+            var issue = self.get("store").peekAll("issue").toArray().find(function (i) {
                 return i.get("id") === obj.doc._id;
             });
             if (issue !== undefined && issue.get("_data.rev") !== obj.doc._rev) {
