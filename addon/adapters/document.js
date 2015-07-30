@@ -263,7 +263,7 @@ export default DS.Adapter.extend({
         var id, method, normalizeResponse;
         id = snapshot.id || "";
         method = snapshot.id ? "PUT" : "POST";
-        if (snapshot.attr("rev")) {
+        if (snapshot._attributes.rev) {
             json._rev = snapshot.attr("rev");
         }
         normalizeResponse = function (data) {

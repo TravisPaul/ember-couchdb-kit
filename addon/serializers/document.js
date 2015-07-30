@@ -103,15 +103,16 @@ export default DS.RESTSerializer.extend({
         }
     },
     serializeHasMany: function (snapshot, json, relationship) {
-        var attribute, key, relationshipType;
+        var attribute, key, relationshipType, keyArray;
         attribute = relationship.options.attribute || "id";
         key = relationship.key;
-        relationshipType = snapshot.type.determineRelationshipType(relationship);
+        relationshipType = snapshot.type.determineRelationshipType(relationship, this.get("store"));
         switch (relationshipType) {
             case "manyToNone":
             case "manyToMany":
             case "manyToOne":
-                json[key] = snapshot.hasMany(key).mapBy(attribute);
+                keyArray = Ember.A(snapshot.hasMany(key));
+                json[key] = keyArray.mapBy(attribute);
                 return json[key];
         }
     }

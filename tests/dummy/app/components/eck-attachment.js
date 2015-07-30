@@ -3,7 +3,7 @@ import Ember from "ember";
 export default Ember.Component.extend({
     tagName: "input",
     attributeBindings: ["style", "type", "multiple"],
-    style: "display:none",
+    style: Ember.Handlebars.SafeString("display:none"),
     type: "file",
     multiple: true,
 
