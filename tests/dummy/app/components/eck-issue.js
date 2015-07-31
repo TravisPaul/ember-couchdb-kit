@@ -8,8 +8,14 @@ export default Ember.Component.extend({
 
     submit: function (event) {
         event.preventDefault();
+        var text;
         if (this.get("edit")) {
-            this.send("saveIssue", this.get("value"));
+            text = this.get("childViews")[0].element.value;
+            if (text === "") {
+                this.send("deleteIssue", this.get("content"));
+            } else {
+                this.send("saveIssue", this.get("content"), text);
+            }   
         }
         this.toggleProperty("edit");
     },
@@ -35,15 +41,16 @@ export default Ember.Component.extend({
     drop: function (event) {
         var view = Ember.View.views[event.dataTransfer.getData("id")];
         if (this.draggable === "true" || view.draggable === "true") {
-            this.send("dropIssue", view.get("controller"), view.get("value"), this.get("value"));
+            this.send("dropIssue", view.get("controller"), view.get("content"), this.get("content"));
         }
         event.preventDefault();
         event.target.style.opacity = "1";
     },
 
     actions: {
-        saveIssue: function (value) {
+        saveIssue: function (value, text) {
             this.set("action", "saveIssue");
+            value.set("text", text);
             this.sendAction("action", value);
         },
         dropIssue: function (controller, oldModel, newModel) {
