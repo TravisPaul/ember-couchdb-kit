@@ -235,6 +235,7 @@ export default DS.Adapter.extend({
         if ("attachments" in snapData ? snapData.attachments.length > 0 : void 0) {
             this._updateAttachmnets(snapshot, json);
         }
+        delete json.id;
         delete json.rev;
         return this._push(store, type, snapshot, json);
     },
