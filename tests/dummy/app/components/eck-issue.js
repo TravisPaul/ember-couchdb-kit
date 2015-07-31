@@ -1,6 +1,7 @@
 import Ember from "ember";
+import ListGroupItemComponent from "dummy/components/list-group-item";
 
-export default Ember.Component.extend({
+export default ListGroupItemComponent.extend({
     tagName: "form",
     edit: false,
     attributeBindings: ["draggable"],
@@ -15,36 +16,13 @@ export default Ember.Component.extend({
                 this.send("deleteIssue", this.get("content"));
             } else {
                 this.send("saveIssue", this.get("content"), text);
-            }   
+            }
         }
         this.toggleProperty("edit");
     },
 
     dragStart: function (event) {
-        event.dataTransfer.setData("id", this.get("elementId"));
-    },
-
-    dragEnter: function (event) {
-        event.preventDefault();
-        event.target.style.opacity = "0.4";
-    },
-
-    dragOver: function (event) {
-        event.preventDefault();
-    },
-
-    dragLeave: function (event) {
-        event.preventDefault();
-        event.target.style.opacity = "1";
-    },
-
-    drop: function (event) {
-        var view = Ember.View.views[event.dataTransfer.getData("id")];
-        if (this.draggable === "true" || view.draggable === "true") {
-            this.send("dropIssue", view.get("controller"), view.get("content"), this.get("content"));
-        }
-        event.preventDefault();
-        event.target.style.opacity = "1";
+        this.get("dragHelper").set("component", this);
     },
 
     actions: {
@@ -52,10 +30,6 @@ export default Ember.Component.extend({
             this.set("action", "saveIssue");
             value.set("text", text);
             this.sendAction("action", value);
-        },
-        dropIssue: function (controller, oldModel, newModel) {
-            this.set("action", "dropIssue");
-            this.sendAction("action", controller, oldModel, newModel);
         },
         deleteIssue: function (value) {
             this.set("action", "deleteIssue");
