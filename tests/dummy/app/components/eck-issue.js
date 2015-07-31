@@ -49,6 +49,10 @@ export default Ember.Component.extend({
         dropIssue: function (controller, oldModel, newModel) {
             this.set("action", "dropIssue");
             this.sendAction("action", controller, oldModel, newModel);
+        },
+        deleteIssue: function (value) {
+            this.set("action", "deleteIssue");
+            this.sendAction("action", value);
         }
     }
 });
