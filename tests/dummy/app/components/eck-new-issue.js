@@ -3,8 +3,6 @@ import Ember from "ember";
 export default Ember.Component.extend({
     tagName: "form",
     create: false,
-    attributeBindings: ["style"],
-    style: Ember.Handlebars.SafeString("display:inline"),
 
     submit: function (event) {
         this._save(event);

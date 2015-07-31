@@ -2,8 +2,7 @@ import Ember from "ember";
 
 export default Ember.Component.extend({
     tagName: "input",
-    attributeBindings: ["style", "type", "multiple"],
-    style: Ember.Handlebars.SafeString("display:none"),
+    attributeBindings: ["type", "multiple"],
     type: "file",
     multiple: true,
     change: function (event) {

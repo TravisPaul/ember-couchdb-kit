@@ -79,9 +79,7 @@ export default Ember.Controller.extend({
             compController.get("model").removeObject(compModel);
 
             if (compController.name !== this.name) {
-                compController.get("position").save().then(function () {
-                    self.get("position").reload();
-                });
+                compController.get("position").save();
             }
 
             this.get("model").insertAt(position, compModel);
