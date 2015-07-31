@@ -2,8 +2,8 @@
     {{#each model as |content|}}
         {{eck-issue content=content}}
     {{else}}
-        <li class="list-group-item">
+        {{#list-group-item class="list-group-item"}}
             Empty board...
-        </li>
+        {{/list-group-item}}
     {{/each}}
 </ul>

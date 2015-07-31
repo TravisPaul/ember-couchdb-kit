@@ -70,21 +70,21 @@ export default Ember.Controller.extend({
             attachment.save();
         },
 
-        dropIssue: function (viewController, viewModel, thisModel) {
+        dropIssue: function (compController, compModel, thisModel) {
             var position = this.get("model").toArray().indexOf(thisModel),
                 self = this;
             if (position === -1) {
                 position = 0;
             }
-            viewController.get("model").removeObject(viewModel);
+            compController.get("model").removeObject(compModel);
 
-            if (viewController.name !== this.name) {
-                viewController.get("position").save().then(function () {
+            if (compController.name !== this.name) {
+                compController.get("position").save().then(function () {
                     self.get("position").reload();
                 });
             }
 
-            this.get("model").insertAt(position, viewModel);
+            this.get("model").insertAt(position, compModel);
             this.get("position").save();
         }
     }
