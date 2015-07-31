@@ -72,9 +72,14 @@ export default DS.Adapter.extend({
         });
     },
     _normalizeRevision: function (json) {
-        if (json && json.doc && json.doc._rev) {
-            json.rev = json.doc._rev;
-            delete json.doc._rev;
+        if (json && json._rev) {
+            json.rev = json._rev;
+            delete json._rev;
+        } else {
+            if (json && json.doc && json.doc._rev) {
+                json.rev = json.doc._rev;
+                delete json.doc._rev;
+            }
         }
         return json;
     },
