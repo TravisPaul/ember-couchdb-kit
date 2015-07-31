@@ -44,7 +44,7 @@ export default Ember.Controller.extend({
                 attachmentId = Ember.String.fmt("%@/%@", model.id, file.name),
                 params = {
                     doc_id: model.id,
-                    model_name: model,
+                    model_name: model._internalModel.modelName,
                     rev: model._internalModel._data.rev,
                     id: attachmentId,
                     file: file,
