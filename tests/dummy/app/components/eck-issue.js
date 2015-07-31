@@ -15,7 +15,7 @@ export default Ember.Component.extend({
                 this.send("deleteIssue", this.get("content"));
             } else {
                 this.send("saveIssue", this.get("content"), text);
-            }   
+            }
         }
         this.toggleProperty("edit");
     },
@@ -60,6 +60,10 @@ export default Ember.Component.extend({
         deleteIssue: function (value) {
             this.set("action", "deleteIssue");
             this.sendAction("action", value);
-        }
+        },
+        addAttachment: function (files, content) {
+            this.set("action", "addAttachment");
+            this.sendAction("action", files, content);
+        },
     }
 });

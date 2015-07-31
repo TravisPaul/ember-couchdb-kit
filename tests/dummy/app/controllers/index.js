@@ -41,11 +41,11 @@ export default Ember.Controller.extend({
 
         _addAttachment: function (count, files, size, model, self) {
             var file = files[count],
-                attachmentId = "%@/%@".fmt(model.id, file.name),
+                attachmentId = Ember.String.fmt("%@/%@", model.id, file.name),
                 params = {
                     doc_id: model.id,
-                    model_name: App.Issue,
-                    rev: model._data.rev,
+                    model_name: model,
+                    rev: model._internalModel._data.rev,
                     id: attachmentId,
                     file: file,
                     content_type: file.type,

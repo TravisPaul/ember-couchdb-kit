@@ -271,6 +271,9 @@ export default DS.Adapter.extend({
         if (snapshot._attributes.rev) {
             json._rev = snapshot.attr("rev");
         }
+        if (json.attachments) {
+            delete json.attachments;
+        }
         normalizeResponse = function (data) {
             var _data, _modelJson;
             _data = json || {};
