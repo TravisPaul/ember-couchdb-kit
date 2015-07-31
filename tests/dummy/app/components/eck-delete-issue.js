@@ -6,12 +6,12 @@ export default Ember.Component.extend({
 
     click: function (event) {
         event.preventDefault();
-        this.get("controller").send("deleteIssue", this.get("value"));
+        this.send("deleteIssue", this.get("value"));
     },
     actions: {
-        deleteIssue: function (context) {
+        deleteIssue: function (value) {
             this.set("action", "deleteIssue");
-            this.sendAction("action", context);
+            this.sendAction("action", value);
         }
     }
 });

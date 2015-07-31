@@ -10,6 +10,7 @@ export default DS.RESTSerializer.extend({
         this.normalizeId(hash);
         this.normalizeAttachments(hash._attachments, type.modelName, hash);
         this.addHistoryId(hash);
+        this.normalizeDoc(hash);
         this.normalizeUsingDeclaredMapping(type, hash);
         this.normalizeAttributes(type, hash);
         this.normalizeRelationships(type, hash);
@@ -20,7 +21,6 @@ export default DS.RESTSerializer.extend({
             return hash;
         }
         this.applyTransforms(type, hash);
-        // return hash;
         return this._super(type, hash, prop);
     },
     normalizeSingleResponse: function (store, type, payload, id, requestType) {
@@ -71,7 +71,13 @@ export default DS.RESTSerializer.extend({
         return hash.attachments;
     },
     normalizeId: function (hash) {
-        hash.id = hash._id || hash.id;
+        hash.id = hash.doc && hash.doc._id || hash._id || hash.id;
+        if (hash.doc && hash.doc._id) {
+            delete hash.doc._id;
+        }
+        if (hash._id) {
+            delete hash._id;
+        }
         return hash.id;
     },
     normalizeRelationships: function (type, hash) {
@@ -88,6 +94,16 @@ export default DS.RESTSerializer.extend({
                 return delete hash[payloadKey];
             }), this);
         }
+    },
+    normalizeDoc: function (hash) {
+        var k;
+        if (hash.doc) {
+            Ember.$.each(hash.doc, function (k, v) {
+                hash[k] = v;
+            });
+            delete hash.doc;
+        }
+        return hash;
     },
     serializeBelongsTo: function (snapshot, json, relationship) {
         var attribute, belongsTo, key;
