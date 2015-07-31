@@ -14,8 +14,8 @@ export default DS.Adapter.extend({
             context: this
         }, id);
     },
-    updateRecord: function (store, type, record) {},
-    deleteRecord: function (store, type, record) {},
+    updateRecord: function (store, type, snapshot) {},
+    deleteRecord: function (store, type, snapshot) {},
     ajax: function (url, type, hash, id) {
         return this._ajax(Ember.String.fmt("%@/%@", this.buildURL(), url || ""), type, hash, id);
     },

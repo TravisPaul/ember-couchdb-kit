@@ -31,9 +31,9 @@ export default DS.Adapter.extend({
             });
         });
     },
-    createRecord: function (store, type, record) {
+    createRecord: function (store, type, snapshot) {
         var adapter, url;
-        url = Ember.String.fmt("%@/%@?rev=%@", this.buildURL(), record.get("id"), record.get("rev"));
+        url = Ember.String.fmt("%@/%@?rev=%@", this.buildURL(), snapshot.record.get("id"), snapshot.record.get("rev"));
         adapter = this;
         return new Ember.RSVP.Promise(function (resolve, reject) {
             var data, request,
@@ -42,15 +42,15 @@ export default DS.Adapter.extend({
             data.context = adapter;
             request = new window.XMLHttpRequest();
             request.open("PUT", url, true);
-            request.setRequestHeader("Content-Type", record.get("content_type"));
-            adapter._updateUploadState(record, request);
+            request.setRequestHeader("Content-Type", snapshot.attr("content_type"));
+            adapter._updateUploadState(snapshot, request);
             request.onreadystatechange = function () {
                 var json;
                 if (request.readyState === 4 && (request.status === 201 || request.status === 200)) {
                     data = JSON.parse(request.response);
-                    data.model_name = record.get("model_name");
-                    data.doc_id = record.get("doc_id");
-                    json = adapter.serialize(record, {
+                    data.model_name = snapshot.record.model_name;
+                    data.doc_id = snapshot.record.doc_id;
+                    json = adapter.serialize(snapshot, {
                         includeId: true
                     });
                     delete data.id;
@@ -59,19 +59,19 @@ export default DS.Adapter.extend({
                     });
                 }
             };
-            return request.send(record.get("file"));
+            return request.send(snapshot.record.file);
         });
     },
-    updateRecord: function (store, type, record) {},
-    deleteRecord: function (store, type, record) {
+    updateRecord: function (store, type, snapshot) {},
+    deleteRecord: function (store, type, snapshot) {
         return new Ember.RSVP.Promise(function (resolve, reject) {
             return Ember.run(null, resolve, {});
         });
     },
-    _updateUploadState: function (record, request) {
+    _updateUploadState: function (snapshot, request) {
         var view,
             _this = this;
-        view = record.get("view");
+        view = snapshot._attributes.view;
         if (view) {
             view.startUpload();
             request.onprogress = function (oEvent) {
