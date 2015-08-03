@@ -1,17 +1,17 @@
 import Ember from "ember";
 
-export default Ember.Service.extend({
+export default Ember.Mixin.create({
     _data: {},
-    add: function (type, key, value) {
+    addData: function (type, key, value) {
         var _data = this.get("_data");
         _data[type + ":" + key] = value;
         return _data[type + ":" + key];
     },
-    get: function (type, key) {
+    getData: function (type, key) {
         var _data = this.get("_data");
         return _data[type + ":" + key];
     },
-    remove: function (type, key) {
+    removeData: function (type, key) {
         var _data = this.get("_data");
         return delete _data[type + ":" + key];
     },

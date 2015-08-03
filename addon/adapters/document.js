@@ -1,9 +1,8 @@
 import Ember from "ember";
 import DS from "ember-data";
-import sharedStore from "../services/shared-store";
+import sharedStore from "../mixins/shared-store";
 
-export default DS.Adapter.extend({
-    sharedStore: sharedStore,
+export default DS.Adapter.extend(sharedStore, {
     defaultSerializer: "_default",
     customTypeLookup: false,
     typeViewName: "all",
@@ -232,7 +231,7 @@ export default DS.Adapter.extend({
             includeId: true
         });
         snapData = snapshot.record;
-        if ("attachments" in snapData ? snapData.attachments.length > 0 : void 0) {
+        if ("attachments" in snapData ? snapData.get("attachments").length > 0 : void 0) {
             this._updateAttachmnets(snapshot, json);
         }
         delete json.id;
@@ -243,12 +242,12 @@ export default DS.Adapter.extend({
         return this.ajax(Ember.String.fmt("%@?rev=%@", snapshot.id, snapshot.attr("rev")), "DELETE", (function () {}), {});
     },
     _updateAttachmnets: function (snapshot, json) {
-        var _attachments, sharedStore;
+        var _attachments,
+            self = this;
         _attachments = {};
-        sharedStore = this.get("sharedStore");
         snapshot._hasManyRelationships.attachments.forEach(function (item) {
             var attachment;
-            attachment = sharedStore.get("attachment", item.get("id"));
+            attachment = self.getData("attachment", item.get("id"));
             _attachments[attachment.file_name] = {
                 content_type: attachment.content_type,
                 digest: attachment.digest,

@@ -3,8 +3,8 @@
         <div class="form-group">
             {{#eck-focused-text-area class="form-control" viewName="TextAreaEdit"}}{{content.text}}{{/eck-focused-text-area}}
         </div>
-        {{#if attachments}}
-            {{#each attachments as |attachment|}}
+        {{#if content.attachments}}
+            {{#each content.attachments as |attachment|}}
                 {{attachment.file_name}}
                 {{#eck-delete-attachment value=attachment}} &times; {{/eck-delete-attachment}}
             {{/each}}
@@ -15,10 +15,10 @@
         {{/eck-attachment}}
     {{else}}
         {{content.text}}
-        {{#if attachments}}
+        {{#if content.attachments}}
             <span>, attachments:</span>
-            {{#each attachments as |attachment|}}
-                {{linkToAttachment attachment}}
+            {{#each content.attachments as |attachment|}}
+                {{link-to-attachment attachment}}
             {{/each}}
         {{/if}}
         <div class="btn-group pull-right">

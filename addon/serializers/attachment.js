@@ -8,9 +8,9 @@ export default DS.RESTSerializer.extend({
         self = this;
         rev = hash._rev || hash.rev;
         this.store.find(hash.model_name, hash.doc_id).then(function (document) {
-            if (document.get("_internalModel._data.rev") !== rev) {
-                if (self.getIntRevision(document.get("_internalModel._data.rev")) < self.getIntRevision(rev)) {
-                    return document.set("_internalModel._data.rev", rev);
+            if (document.get("rev") !== rev) {
+                if (self.getIntRevision(document.get("rev")) < self.getIntRevision(rev)) {
+                    return document.set("rev", rev);
                 }
             }
         });

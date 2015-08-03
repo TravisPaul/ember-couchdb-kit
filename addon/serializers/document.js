@@ -1,14 +1,13 @@
 import Ember from "ember";
 import DS from "ember-data";
-import sharedStore from "../services/shared-store";
+import sharedStore from "../mixins/shared-store";
 
-export default DS.RESTSerializer.extend({
+export default DS.RESTSerializer.extend(sharedStore, {
     isNewSerializerAPI: true,
-    sharedStore: sharedStore,
     primaryKey: "id",
     normalize: function (type, hash, prop) {
         this.normalizeId(hash);
-        this.normalizeAttachments(hash._attachments, type.modelName, hash);
+        this.normalizeAttachments(hash.doc._attachments, type.modelName, hash);
         this.addHistoryId(hash);
         this.normalizeDoc(hash);
         this.normalizeUsingDeclaredMapping(type, hash);
@@ -49,21 +48,21 @@ export default DS.RESTSerializer.extend({
         for (k in attachments) {
             if (attachments.hasOwnProperty(k)) {
                 v = attachments[k];
-                key = hash._id + "/" + k;
+                key = hash.id + "/" + k;
                 attachment = {
                     id: key,
                     content_type: v.content_type,
                     digest: v.digest,
                     length: v.length,
                     stub: v.stub,
-                    doc_id: hash._id,
+                    doc_id: hash.id,
                     rev: hash.rev,
                     file_name: k,
                     model_name: type,
                     revpos: v.revpos,
                     db: v.db
                 };
-                this.get("sharedStore").add("attachment", key, attachment);
+                this.addData("attachment", key, attachment);
                 _attachments.push(key);
             }
         }

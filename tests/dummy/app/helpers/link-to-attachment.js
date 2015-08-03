@@ -1,10 +1,10 @@
-/* global App */
 import Ember from "ember";
 
-export default Ember.Handlebars.makeBoundHelper(function (attachment) {
-    var aTagTemplate = "<a href='%@' target='_blank'>%@</a>",
-        url = "%@/%@/%@".fmt(App.Host, attachment.get("_data.db"), attachment.get("id"));
-    return new Ember.Handlebars.SafeString(
-        aTagTemplate.fmt(url, attachment.get("file_name"))
-    );
+export default Ember.Helper.extend({
+    globals: Ember.inject.service(),
+    compute(params) {
+        var aTagTemplate = "<a href='%@' target='_blank'>%@</a>",
+            url = Ember.String.fmt("%@/%@/%@", this.get("globals").get("host"), params[0].get("db"), params[0].get("id"));
+        return Ember.String.htmlSafe(Ember.String.fmt(aTagTemplate, url, params[0].get("file_name")));
+    }
 });

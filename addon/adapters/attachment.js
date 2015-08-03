@@ -1,28 +1,27 @@
 import Ember from "ember";
 import DS from "ember-data";
-import sharedStore from "../services/shared-store";
+import sharedStore from "../mixins/shared-store";
 
-export default DS.Adapter.extend({
-    sharedStore: sharedStore,
+export default DS.Adapter.extend(sharedStore, {
     // DEPRECATED
     // Find has been deprecated as of Ember Data 1.13. This has been left for backwards compatibility.
     find: function (store, type, id) {
         return this.findRecord(store, type, id);
     },
     findRecord: function (store, type, id) {
-        var sharedStore = this.get("sharedStore");
+        var self = this;
         return new Ember.RSVP.Promise(function (resolve, reject) {
             return Ember.run(null, resolve, {
-                attachment: sharedStore.get("attachment", id)
+                attachment: self.getData("attachment", id)
             });
         });
     },
     findMany: function (store, type, ids) {
         var docs,
-            _this = this;
+            self = this;
         docs = ids.map(function (item) {
-            item = _this.get("sharedStore").get("attachment", item);
-            item.db = _this.get("db");
+            item = self.getData("attachment", item);
+            item.db = self.get("db");
             return item;
         });
         return new Ember.RSVP.Promise(function (resolve, reject) {
@@ -37,7 +36,7 @@ export default DS.Adapter.extend({
         adapter = this;
         return new Ember.RSVP.Promise(function (resolve, reject) {
             var data, request,
-                _this = this;
+                self = this;
             data = {};
             data.context = adapter;
             request = new window.XMLHttpRequest();
@@ -70,7 +69,7 @@ export default DS.Adapter.extend({
     },
     _updateUploadState: function (snapshot, request) {
         var view,
-            _this = this;
+            self = this;
         view = snapshot._attributes.view;
         if (view) {
             view.startUpload();

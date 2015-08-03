@@ -5,7 +5,6 @@ import RevAdapter from "./adapters/rev";
 import AttachmentSerializer from "./serializers/attachment";
 import DocumentSerializer from "./serializers/document";
 import RevSerializer from "./serializers/rev";
-import SharedStore from "./services/shared-store";
 
 export {
     ChangesFeed,
@@ -14,6 +13,5 @@ export {
     RevAdapter,
     AttachmentSerializer,
     DocumentSerializer,
-    RevSerializer,
-    SharedStore
+    RevSerializer
 };

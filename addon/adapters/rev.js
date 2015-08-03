@@ -1,9 +1,8 @@
 import Ember from "ember";
 import DS from "ember-data";
-import sharedStore from "../services/shared-store";
+import sharedStore from "../mixins/shared-store";
 
-export default DS.Adapter.extend({
-    sharedStore: sharedStore,
+export default DS.Adapter.extend(sharedStore, {
     // DEPRECATED
     // Find has been deprecated as of Ember Data 1.13. This has been left for backwards compatibility.
     find: function (store, type, id) {
@@ -20,7 +19,6 @@ export default DS.Adapter.extend({
         return this._ajax(Ember.String.fmt("%@/%@", this.buildURL(), url || ""), type, hash, id);
     },
     _ajax: function (url, type, hash, id) {
-        var sharedStore = this.get("sharedStore");
         hash.url = url;
         hash.type = type;
         hash.dataType = "json";
@@ -30,8 +28,9 @@ export default DS.Adapter.extend({
             hash.data = JSON.stringify(hash.data);
         }
         return new Ember.RSVP.Promise(function (resolve, reject) {
+            var self = this;
             hash.success = function (data) {
-                sharedStore.add("revs", id, data);
+                self.addData("revs", id, data);
                 return Ember.run(null, resolve, {
                     history: {
                         id: id
