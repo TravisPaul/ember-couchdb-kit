@@ -4,7 +4,8 @@ export default Ember.Helper.extend({
     globals: Ember.inject.service(),
     compute(params) {
         var aTagTemplate = "<a href='%@' target='_blank'>%@</a>",
-            url = Ember.String.fmt("%@/%@/%@", this.get("globals").get("host"), params[0].get("db"), params[0].get("id")),
+            globals = this.get("globals"),
+            url = Ember.String.fmt("%@/%@/%@", globals.get("host"), globals.get("db"), params[0].get("id")),
             self = this;
         if (params[0].get("isLoading")) {
             params[0]._internalModel._loadingPromise.then(function () {

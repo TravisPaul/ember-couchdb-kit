@@ -1,4 +1,3 @@
-/* global App */
 import AttachmentAdapter from "ember-couch/adapters/attachment";
 
 export default AttachmentAdapter.extend({

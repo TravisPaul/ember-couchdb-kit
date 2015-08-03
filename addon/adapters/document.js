@@ -247,7 +247,7 @@ export default DS.Adapter.extend(sharedStore, {
         _attachments = {};
         snapshot._hasManyRelationships.attachments.forEach(function (item) {
             var attachment;
-            attachment = self.getData("attachment", item.get("id"));
+            attachment = self.getData("attachment", item.id);
             _attachments[attachment.file_name] = {
                 content_type: attachment.content_type,
                 digest: attachment.digest,

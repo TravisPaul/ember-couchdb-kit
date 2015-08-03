@@ -1,4 +1,3 @@
-/* global App */
 import DocumentAdapter from "ember-couch/adapters/document";
 
 export default DocumentAdapter.extend({
