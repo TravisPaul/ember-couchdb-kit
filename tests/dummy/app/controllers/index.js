@@ -65,9 +65,11 @@ export default Ember.Controller.extend({
             });
         },
 
-        deleteAttachment: function (attachment) {
+        deleteAttachment: function (attachment, issue) {
             attachment.deleteRecord();
-            attachment.save();
+            attachment.save().then(function () {
+                issue.save();
+            });
         },
 
         dropIssue: function (compController, compModel, thisModel) {

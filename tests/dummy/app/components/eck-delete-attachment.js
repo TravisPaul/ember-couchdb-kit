@@ -6,13 +6,13 @@ export default Ember.Component.extend({
 
     click: function (event) {
         event.preventDefault();
-        this.send("deleteAttachment", this.get("value"));
+        this.send("deleteAttachment", this.get("value"), this.get("issue"));
     },
 
     actions: {
-        deleteAttachment: function (value) {
+        deleteAttachment: function (value, issue) {
             this.set("action", "deleteAttachment");
-            this.sendAction("action", value);
+            this.sendAction("action", value, issue);
         }
     }
 });

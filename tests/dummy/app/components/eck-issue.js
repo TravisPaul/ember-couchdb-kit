@@ -39,9 +39,9 @@ export default ListGroupItemComponent.extend({
             this.set("action", "addAttachment");
             this.sendAction("action", files, content);
         },
-        deleteAttachment: function (value) {
+        deleteAttachment: function (value, issue) {
             this.set("action", "deleteAttachment");
-            this.sendAction("action", value);
+            this.sendAction("action", value, issue);
         }
     }
 });

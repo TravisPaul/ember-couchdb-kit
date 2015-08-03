@@ -7,7 +7,7 @@
         {{#each content.attachments as |attachment|}}
             <li>
             {{attachment.file_name}}
-            {{#eck-delete-attachment value=attachment}} &times; {{/eck-delete-attachment}}
+            {{#eck-delete-attachment value=attachment issue=content}} &times; {{/eck-delete-attachment}}
             </li>
         {{/each}}
         </ul>
