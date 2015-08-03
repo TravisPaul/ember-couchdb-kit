@@ -1,6 +1,8 @@
 <ul class="list-group">
     {{#each model as |content|}}
-        {{eck-issue content=content}}
+        <li class="list-group-item">
+            {{eck-issue content=content}}
+        </li>
     {{else}}
         {{#list-group-item class="list-group-item"}}
             Empty board...

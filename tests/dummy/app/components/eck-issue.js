@@ -38,6 +38,10 @@ export default ListGroupItemComponent.extend({
         addAttachment: function (files, content) {
             this.set("action", "addAttachment");
             this.sendAction("action", files, content);
+        },
+        deleteAttachment: function (value) {
+            this.set("action", "deleteAttachment");
+            this.sendAction("action", value);
         }
     }
 });

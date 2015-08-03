@@ -7,7 +7,7 @@ export default DS.RESTSerializer.extend(sharedStore, {
     primaryKey: "id",
     normalize: function (type, hash, prop) {
         this.normalizeId(hash);
-        this.normalizeAttachments(hash.doc._attachments, type.modelName, hash);
+        this.normalizeAttachments(hash, type.modelName);
         this.addHistoryId(hash);
         this.normalizeDoc(hash);
         this.normalizeUsingDeclaredMapping(type, hash);
@@ -42,8 +42,9 @@ export default DS.RESTSerializer.extend(sharedStore, {
         hash.history = Ember.String.fmt("%@/history", hash.id);
         return hash.history;
     },
-    normalizeAttachments: function (attachments, type, hash) {
-        var attachment, k, key, v, _attachments;
+    normalizeAttachments: function (hash, type) {
+        var attachment, k, key, v, _attachments, attachments;
+        attachments = hash.doc && hash.doc._attachments || hash._attachments || hash.attachments;
         _attachments = [];
         for (k in attachments) {
             if (attachments.hasOwnProperty(k)) {
