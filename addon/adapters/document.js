@@ -231,7 +231,7 @@ export default DS.Adapter.extend(sharedStore, {
             includeId: true
         });
         snapData = snapshot.record;
-        if ("attachments" in snapData ? snapData.get("attachments").length > 0 : void 0) {
+        if ("attachments" in snapData ? snapData.get("attachments").get("length") > 0 : void 0) {
             this._updateAttachmnets(snapshot, json);
         }
         delete json.id;
