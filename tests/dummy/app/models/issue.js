@@ -5,6 +5,8 @@ export default DS.Model.extend({
     type: DS.attr("string", {
         defaultValue: "issue"
     }),
-    attachments: DS.hasMany("attachment", {async: true}),
+    attachments: DS.hasMany("attachment", {
+        async: true
+    }),
     rev: DS.attr("string")
 });
