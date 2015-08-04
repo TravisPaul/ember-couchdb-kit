@@ -15,6 +15,7 @@ In your adapters and serializers you must import then extend the adapter and ser
 * DocumentAdapter
 * AttachmentAdapter
 * RevAdapter (experimental)
+
 ### Serializers
 * DocumentSerializer
 * AttachmentSerializer
