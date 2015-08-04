@@ -39,13 +39,16 @@ export default DS.RESTSerializer.extend(sharedStore, {
         return this._super(snapshot, options);
     },
     addHistoryId: function (hash) {
-        hash.history = Ember.String.fmt("%@/history", hash.id);
+        hash.history = hash.id + "/history";
         return hash.history;
     },
     normalizeAttachments: function (hash, type) {
-        var attachment, k, key, v, _attachments, attachments;
-        attachments = hash.doc && hash.doc._attachments || hash._attachments || hash.attachments;
-        _attachments = [];
+        var attachment,
+            k,
+            key,
+            v,
+            _attachments = [],
+            attachments = hash.doc && hash.doc._attachments || hash._attachments || hash.attachments;
         for (k in attachments) {
             if (attachments.hasOwnProperty(k)) {
                 v = attachments[k];
@@ -81,9 +84,8 @@ export default DS.RESTSerializer.extend(sharedStore, {
         return hash.id;
     },
     normalizeRelationships: function (type, hash) {
-        var key, payloadKey;
-        payloadKey = void 0;
-        key = void 0;
+        var key = void 0,
+            payloadKey = void 0;
         if (this.keyForRelationship) {
             return type.eachRelationship((function (key, relationship) {
                 payloadKey = this.keyForRelationship(key, relationship.kind);
@@ -96,7 +98,6 @@ export default DS.RESTSerializer.extend(sharedStore, {
         }
     },
     normalizeDoc: function (hash) {
-        var k;
         if (hash.doc) {
             Ember.$.each(hash.doc, function (k, v) {
                 hash[k] = v;
@@ -106,10 +107,9 @@ export default DS.RESTSerializer.extend(sharedStore, {
         return hash;
     },
     serializeBelongsTo: function (snapshot, json, relationship) {
-        var attribute, belongsTo, key;
-        attribute = relationship.options.attribute || "id";
-        key = relationship.key;
-        belongsTo = snapshot.belongsTo(key);
+        var attribute = relationship.options.attribute || "id",
+            belongsTo = relationship.key,
+            key = snapshot.belongsTo(key);
         if (Ember.isNone(belongsTo)) {
             return;
         }
@@ -120,10 +120,10 @@ export default DS.RESTSerializer.extend(sharedStore, {
         }
     },
     serializeHasMany: function (snapshot, json, relationship) {
-        var attribute, key, relationshipType, keyArray;
-        attribute = relationship.options.attribute || "id";
-        key = relationship.key;
-        relationshipType = snapshot.type.determineRelationshipType(relationship, this.get("store"));
+        var attribute = relationship.options.attribute || "id",
+            key = relationship.key,
+            relationshipType = snapshot.type.determineRelationshipType(relationship, this.get("store")),
+            keyArray;
         switch (relationshipType) {
             case "manyToNone":
             case "manyToMany":

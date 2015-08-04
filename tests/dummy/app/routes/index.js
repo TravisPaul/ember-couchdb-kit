@@ -67,9 +67,9 @@ export default Ember.Route.extend({
     _handlePositionChanges: function (data) {
         var self = this;
         data.forEach(function (obj) {
-            var position = self.controllerFor(obj.doc._id).get("position");
+            var position = self.controllerFor(obj.id || obj.doc && obj.doc._id).get("position");
             // we should reload particular postion model in case of update is received from another user
-            if (position.get("_data.rev") !== obj.doc._rev) {
+            if (position.get("rev") !== (obj.rev || obj.doc && obj.doc._rev)) {
                 position.reload();
             }
         });
@@ -99,9 +99,9 @@ export default Ember.Route.extend({
         // apply received updates
         data.forEach(function (obj) {
             var issue = self.get("store").peekAll("issue").toArray().find(function (i) {
-                return i.get("id") === obj.doc._id;
+                return i.get("id") === (obj.id || obj.doc && obj.doc._id);
             });
-            if (issue !== undefined && issue.get("_data.rev") !== obj.doc._rev) {
+            if (issue !== undefined && issue.get("rev") !== (obj.rev || obj.doc && obj.doc._rev)) {
                 issue.reload();
             }
         });

@@ -9,14 +9,14 @@ export default DS.Adapter.extend(sharedStore, {
         return this.findRecord(store, type, id);
     },
     findRecord: function (store, type, id) {
-        return this.ajax(Ember.String.fmt("%@?revs_info=true", id.split("/")[0]), "GET", {
+        return this.ajax(id.split("/")[0] + "?revs_info=true", "GET", {
             context: this
         }, id);
     },
     updateRecord: function (store, type, snapshot) {},
     deleteRecord: function (store, type, snapshot) {},
     ajax: function (url, type, hash, id) {
-        return this._ajax(Ember.String.fmt("%@/%@", this.buildURL(), url || ""), type, hash, id);
+        return this._ajax(this.buildURL() + "/" + url || "", type, hash, id);
     },
     _ajax: function (url, type, hash, id) {
         hash.url = url;
@@ -41,10 +41,9 @@ export default DS.Adapter.extend(sharedStore, {
         });
     },
     buildURL: function () {
-        var host, namespace, url;
-        host = Ember.get(this, "host");
-        namespace = Ember.get(this, "namespace");
-        url = [];
+        var host = Ember.get(this, "host"),
+            namespace = Ember.get(this, "namespace"),
+            url = [];
         if (host) {
             url.push(host);
         }

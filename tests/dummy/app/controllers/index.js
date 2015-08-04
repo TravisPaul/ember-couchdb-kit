@@ -41,7 +41,7 @@ export default Ember.Controller.extend({
 
         _addAttachment: function (count, files, size, model, self) {
             var file = files[count],
-                attachmentId = Ember.String.fmt("%@/%@", model.id, file.name),
+                attachmentId = model.id + "/" + file.name,
                 params = {
                     doc_id: model.id,
                     model_name: model._internalModel.modelName,
@@ -52,9 +52,8 @@ export default Ember.Controller.extend({
                     length: file.size,
                     file_name: file.name
                 },
-                attachment;
+                attachment = self.get("store").createRecord("attachment", params);
 
-            attachment = self.get("store").createRecord("attachment", params);
             attachment.save().then(function () {
                 model.get("attachments").pushObject(attachment);
                 model.reload();

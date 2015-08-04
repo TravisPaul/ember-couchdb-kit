@@ -31,15 +31,13 @@ export default DS.Adapter.extend(sharedStore, {
         });
     },
     createRecord: function (store, type, snapshot) {
-        var adapter, url;
-        url = Ember.String.fmt("%@/%@?rev=%@", this.buildURL(), snapshot.record.get("id"), snapshot.record.get("rev"));
-        adapter = this;
+        var adapter = this,
+            url = this.buildURL() + "/" + snapshot.record.get("id") + "?rev=" + snapshot.record.get("rev");
         return new Ember.RSVP.Promise(function (resolve, reject) {
-            var data, request,
+            var data = {},
+                request = new window.XMLHttpRequest(),
                 self = this;
-            data = {};
             data.context = adapter;
-            request = new window.XMLHttpRequest();
             request.open("PUT", url, true);
             request.setRequestHeader("Content-Type", snapshot.attr("content_type"));
             adapter._updateUploadState(snapshot, request);
@@ -68,9 +66,8 @@ export default DS.Adapter.extend(sharedStore, {
         });
     },
     _updateUploadState: function (snapshot, request) {
-        var view,
+        var view = snapshot._attributes.view,
             self = this;
-        view = snapshot._attributes.view;
         if (view) {
             view.startUpload();
             request.onprogress = function (oEvent) {
@@ -84,10 +81,9 @@ export default DS.Adapter.extend(sharedStore, {
         }
     },
     buildURL: function () {
-        var host, namespace, url;
-        host = Ember.get(this, "host");
-        namespace = Ember.get(this, "namespace");
-        url = [];
+        var host = Ember.get(this, "host"),
+            namespace = Ember.get(this, "namespace"),
+            url = [];
         if (host) {
             url.push(host);
         }

@@ -4,9 +4,8 @@ export default DS.RESTSerializer.extend({
     isNewSerializerAPI: true,
     primaryKey: "id",
     normalize: function (type, hash) {
-        var rev, self;
-        self = this;
-        rev = hash._rev || hash.rev;
+        var self = this,
+            rev = hash._rev || hash.rev;
         this.store.find(hash.model_name, hash.doc_id).then(function (document) {
             if (document.get("rev") !== rev) {
                 if (self.getIntRevision(document.get("rev")) < self.getIntRevision(rev)) {

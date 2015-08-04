@@ -7,10 +7,9 @@ export default DS.Adapter.extend(sharedStore, {
     customTypeLookup: false,
     typeViewName: "all",
     buildURL: function () {
-        var host, namespace, url;
-        host = Ember.get(this, "host");
-        namespace = Ember.get(this, "namespace");
-        url = [];
+        var host = Ember.get(this, "host"),
+            namespace = Ember.get(this, "namespace"),
+            url = [];
         if (host) {
             url.push(host);
         }
@@ -25,14 +24,13 @@ export default DS.Adapter.extend(sharedStore, {
         return url;
     },
     ajax: function (url, type, normalizeResponse, hash) {
-        return this._ajax(Ember.String.fmt("%@/%@", this.buildURL(), url || ""), type, normalizeResponse, hash);
+        return this._ajax(this.buildURL() + "/" + url || "", type, normalizeResponse, hash);
     },
     _ajax: function (url, type, normalizeResponse, hash) {
-        var adapter;
+        var adapter = this;
         if (!hash) {
             hash = {};
         }
-        adapter = this;
         return new Ember.RSVP.Promise(function (resolve, reject) {
             var headers;
             if (url.split("/").pop() === "") {
@@ -56,8 +54,7 @@ export default DS.Adapter.extend(sharedStore, {
             }
             if (!hash.success) {
                 hash.success = function (json) {
-                    var _modelJson;
-                    _modelJson = normalizeResponse.call(adapter, json);
+                    var _modelJson = normalizeResponse.call(adapter, json);
                     return Ember.run(null, resolve, _modelJson);
                 };
             }
@@ -96,9 +93,8 @@ export default DS.Adapter.extend(sharedStore, {
             return this.findWithRev(store, type, id);
         } else {
             normalizeResponse = function (data) {
-                var _modelJson;
+                var _modelJson = {};
                 this._normalizeRevision(data);
-                _modelJson = {};
                 _modelJson[type.modelName] = data;
                 return _modelJson;
             };
@@ -106,15 +102,14 @@ export default DS.Adapter.extend(sharedStore, {
         }
     },
     findWithRev: function (store, type, id, hash) {
-        var normalizeResponse, url, _id, _ref, _rev;
-        _ref = id.split("/").slice(0, 2);
-        _id = _ref[0];
-        _rev = _ref[1];
-        url = Ember.String.fmt("%@?rev=%@", _id, _rev);
+        var normalizeResponse,
+            _ref = id.split("/").slice(0, 2),
+            _id = _ref[0],
+            _rev = _ref[1],
+            url = _id + "?rev=" + _rev;
         normalizeResponse = function (data) {
-            var _modelJson;
+            var _modelJson = {};
             this._normalizeRevision(data);
-            _modelJson = {};
             data._id = id;
             _modelJson[type.modelName] = data;
             return _modelJson;
@@ -122,22 +117,19 @@ export default DS.Adapter.extend(sharedStore, {
         return this.ajax(url, "GET", normalizeResponse, hash);
     },
     findManyWithRev: function (store, type, ids) {
-        var docs, hash, key, self,
-            _this = this;
-        key = Ember.String.pluralize(type.modelName);
-        self = this;
-        docs = {};
+        var docs = {},
+            hash = {
+                async: false
+            },
+            key = Ember.String.pluralize(type.modelName),
+            self = this;
         docs[key] = [];
-        hash = {
-            async: false
-        };
         ids.forEach(function (id) {
-            var url, _id, _ref, _rev;
-            _ref = id.split("/").slice(0, 2);
-            _id = _ref[0];
-            _rev = _ref[1];
-            url = Ember.String.fmt("%@?rev=%@", _id, _rev);
-            url = Ember.String.fmt("%@/%@", _this.buildURL(), url);
+            var _ref = id.split("/").slice(0, 2),
+                _id = _ref[0],
+                _rev = _ref[1],
+                url = _id + "?rev=" + _rev;
+            url = self.buildURL() + "/" + url;
             hash.url = url;
             hash.type = "GET";
             hash.dataType = "json";
@@ -152,7 +144,8 @@ export default DS.Adapter.extend(sharedStore, {
         return docs;
     },
     findMany: function (store, type, ids) {
-        var data, normalizeResponse;
+        var data,
+            normalizeResponse;
         if (this._checkForRevision(ids[0])) {
             return this.findManyWithRev(store, type, ids);
         } else {
@@ -162,10 +155,10 @@ export default DS.Adapter.extend(sharedStore, {
             };
             normalizeResponse = function (data) {
                 var json,
-                    _this = this;
+                    self = this;
                 json = {};
                 json[Ember.String.pluralize(type.modelName)] = data.rows.map(function (doc) {
-                    return _this._normalizeRevision(doc);
+                    return self._normalizeRevision(doc);
                 });
                 return json;
             };
@@ -183,15 +176,15 @@ export default DS.Adapter.extend(sharedStore, {
         query.options.include_docs = true;
         normalizeResponse = function (data) {
             var json,
-                _this = this;
+                self = this;
             json = {};
             json[designDoc] = data.rows.getEach("doc").map(function (doc) {
-                return _this._normalizeRevision(doc);
+                return self._normalizeRevision(doc);
             });
             json.total_rows = data.total_rows;
             return json;
         };
-        return this.ajax(Ember.String.fmt("_design/%@/_view/%@", designDoc, query.viewName), "GET", normalizeResponse, {
+        return this.ajax("_design/" + designDoc + "/_view/" + query.viewName, "GET", normalizeResponse, {
             context: this,
             data: query.options
         });
@@ -203,10 +196,10 @@ export default DS.Adapter.extend(sharedStore, {
         typeViewName = this.get("typeViewName");
         normalizeResponse = function (data) {
             var json,
-                _this = this;
+                self = this;
             json = {};
             json[[Ember.String.pluralize(type.modelName)]] = data.rows.getEach("doc").map(function (doc) {
-                return _this._normalizeRevision(doc);
+                return self._normalizeRevision(doc);
             });
             return json;
         };
@@ -214,7 +207,7 @@ export default DS.Adapter.extend(sharedStore, {
             include_docs: true,
             key: "\"" + typeString + "\""
         };
-        return this.ajax(Ember.String.fmt("_design/%@/_view/%@", designDoc, typeViewName), "GET", normalizeResponse, {
+        return this.ajax("_design/" + designDoc + "/_view/" + typeViewName, "GET", normalizeResponse, {
             data: data
         });
     },
@@ -239,7 +232,7 @@ export default DS.Adapter.extend(sharedStore, {
         return this._push(store, type, snapshot, json);
     },
     deleteRecord: function (store, type, snapshot) {
-        return this.ajax(Ember.String.fmt("%@?rev=%@", snapshot.id, snapshot.attr("rev")), "DELETE", (function () {}), {});
+        return this.ajax(snapshot.id + "?rev=" + snapshot.attr("rev"), "DELETE", (function () {}), {});
     },
     _updateAttachmnets: function (snapshot, json) {
         var _attachments,

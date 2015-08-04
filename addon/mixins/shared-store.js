@@ -16,14 +16,16 @@ export default Ember.Mixin.create({
         return delete _data[type + ":" + key];
     },
     mapRevIds: function (type, key) {
-        var _this = this;
+        var self = this;
         return this.get(type, key)._revs_info.map(function (_rev) {
-            return Ember.String.fmt("%@/%@", _this.get(type, key)._id, _rev.rev);
+            return self.get(type, key)._id + "/" + _rev.rev;
         });
     },
     stopAll: function () {
-        var k, v, _results, _data = this.get("_data");
-        _results = [];
+        var k,
+            v,
+            _results = [],
+            _data = this.get("_data");
         for (k in _data) {
             if (_data.hasOwnProperty(k)) {
                 v = _data[k];
