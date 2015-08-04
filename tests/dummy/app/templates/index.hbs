@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <div class="github-fork-ribbon-wrapper right">
+        <div class="github-fork-ribbon">
+            <a href="https://github.com/ValidUSA/ember-couch">Fork me on GitHub</a>
+        </div>
+    </div>
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <h5 class="navbar-brand">Ember Couch In Action</h5>
+            </div>
+        </div>
+    </nav>
+    <div class="jumbotron">
+        <p>A simple app to demonstrate usage of <strong>Ember.js</strong> adapter for <strong>CouchDB</strong>. To run this demo locally: </p>
+        <p><small><code>$ curl -X PUT http://localhost:5984/boards</code></small></p>
+        <p><small><code>$ curl -X PUT http://localhost:5984/boards/_design/issues -H 'Content-Type: application/json' -d '{"_id": "_design/issues","language": "javascript","filters": {"only_positions": "function(doc, req) { if(doc.type == \"position\") { return true; } }","issue": "function(doc, req) {if(doc.type == \"issue\") { return true; } }"}}'</code></small></p>
+        <p><small><code>$ curl -X PUT http://localhost:5984/boards/_design/issues -H 'Content-Type: application/json' -d '{"_id": "common"}'</code></small></p>
+        <p><small><code>$ curl -X PUT http://localhost:5984/boards/_design/issues -H 'Content-Type: application/json' -d '{"_id": "intermediate"}'</code></small></p>
+        <p><small><code>$ curl -X PUT http://localhost:5984/boards/_design/issues -H 'Content-Type: application/json' -d '{"_id": "advanced"}'</code></small></p>
+        <p><small><code>$ git clone git@github.com:ValidUSA/ember-couch.git</code></small></p>
+        <p><small><code>$ cd ember-couch</code></small></p>
+        <p><small><code>$ npm install && bower install && ember server</code></small></p>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">{{outlet "common"}}</div>
+        <div class="col-lg-4">{{outlet "intermediate"}}</div>
+        <div class="col-lg-4">{{outlet "advanced"}}</div>
+    </div>
+</div>

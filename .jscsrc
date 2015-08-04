@@ -1,0 +1,51 @@
+{
+    "disallowFunctionDeclarations": true,
+    "disallowEmptyBlocks": true,
+    "disallowImplicitTypeConversion": ["numeric", "boolean", "binary", "string"],
+    "disallowKeywordsOnNewLine": ["else", "catch", "while", "until"],
+    "disallowKeywords": ["const", "let", "super", "with", "yield"],
+    "disallowMixedSpacesAndTabs": true,
+    "disallowMultipleLineBreaks": true,
+    "disallowMultipleLineStrings": true,
+    "disallowNewlineBeforeBlockStatements": true,
+    "disallowOperatorBeforeLineBreak": ["+", "."],
+    "disallowPaddingNewlinesInBlocks": true,
+    "disallowQuotedKeysInObjects": "allButReserved",
+    "disallowSpacesInsideParentheses": true,
+    "disallowYodaConditions": true,
+    "disallowTrailingComma": true,
+    "disallowTrailingWhitespace": true,
+    "esnext": true,
+    "requireBlocksOnNewline": true,
+    "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+    "requireCommaBeforeLineBreak": true,
+    "requireDotNotation": true,
+    "requireLineBreakAfterVariableAssignment": true,
+    "requireMultipleVarDecl": "onevar",
+    "requireOperatorBeforeLineBreak": true,
+    "requirePaddingNewLinesInObjects": true,
+    "requireParenthesesAroundIIFE": true,
+    "requireSpaceAfterBinaryOperators": true,
+    "requireSpaceAfterKeywords": true,
+    "requireSpaceAfterLineComment": true,
+    "requireSpaceBeforeBinaryOperators": true,
+    "requireSpaceBeforeBlockStatements": true,
+    "requireSpacesInConditionalExpression": {
+        "afterTest": true,
+        "beforeConsequent": true,
+        "afterConsequent": true,
+        "beforeAlternate": true
+    },
+    "requireSpacesInFunction": {
+        "beforeOpeningRoundBrace": true,
+        "beforeOpeningCurlyBrace": true
+    },
+    "requireSpaceBeforeKeywords": ["else", "while", "until", "catch"],
+    "requireSpaceBeforeObjectValues": true,
+    "requireSpaceBetweenArguments": true,
+    "validateIndentation": 4,
+    "validateQuoteMarks": {
+        "mark": "\"",
+        "escape": true
+    }
+}

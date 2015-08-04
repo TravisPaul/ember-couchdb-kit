@@ -1,0 +1,33 @@
+{{#if edit}}
+    <div class="form-group">
+        {{#eck-focused-text-area class="form-control" viewName="TextAreaEdit"}}{{content.text}}{{/eck-focused-text-area}}
+    </div>
+    {{#if content.attachments}}
+        <ul>
+        {{#each content.attachments as |attachment|}}
+            <li>
+            {{attachment.file_name}}
+            {{#eck-delete-attachment value=attachment issue=content}} &times; {{/eck-delete-attachment}}
+            </li>
+        {{/each}}
+        </ul>
+    {{/if}}
+    <button type="submit" class="btn btn-xs btn-success"> Ok </button>
+    {{#eck-attachment value=content}}
+        <button {{action "browseFile" target=view}} class="btn btn-xs btn-default"> Attach </button>
+    {{/eck-attachment}}
+{{else}}
+    {{content.text}}
+    {{#if content.attachments}}
+        <span>, attachments:</span>
+        {{#each content.attachments as |attachment|}}
+            {{link-to-attachment attachment}}
+        {{/each}}
+    {{/if}}
+    <div class="btn-group pull-right">
+        <button type="submit" class="btn btn-xs btn-info">Edit</button>
+        {{#eck-delete-issue value=content}}
+            &times;
+        {{/eck-delete-issue}}
+    </div>
+{{/if}}
