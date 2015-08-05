@@ -83,7 +83,7 @@ export default DS.Adapter.extend(sharedStore, {
         return this._super.apply(arguments);
     },
     // DEPRECATED
-    // Find has been deprecated as of Ember Data 1.13. This has been left for backwards compatibility.
+    // find has been deprecated as of Ember Data 1.13. This has been left for backwards compatibility.
     find: function (store, type, id) {
         return this.findRecord(store, type, id);
     },
@@ -167,7 +167,12 @@ export default DS.Adapter.extend(sharedStore, {
             });
         }
     },
-    findQuery: function (store, type, query, modelArray) {
+    // DEPRECATED
+    // findQuery has been deprecated as of Ember Data 1.13. This has been left for backwards compatibility.
+    findQuery: function (store, type, query) {
+        return this.query(store, type, query);
+    },
+    query: function (store, type, query) {
         var designDoc, normalizeResponse;
         designDoc = query.designDoc || this.get("designDoc");
         if (!query.options) {
