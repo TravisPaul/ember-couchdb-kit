@@ -285,7 +285,31 @@ export default DS.Adapter.extend(sharedStore, {
         });
     },
     shouldBackgroundReloadRecord: function (store, snapshot) {
-        // We don"t ever want to background reload a new record do we?
-        return !snapshot.record.get("isNew");
+        // If there is no rev, then do not backround reload
+        // if the rev matches the HEAD call (TBD) the do not background reload
+        var rev = "",
+            success = function (data, textStatus, jqXHR) {
+                rev = jqXHR.getResponseHeader("ETag").replace(/["]+/g, '') || "";
+            }
+        if(snapshot.attr("rev"))
+        {
+            this.ajax(snapshot.id, "HEAD", function(){}, {success: success}).then(function() {
+                    // on fulfillment
+                console.log("promise fulfilled " + rev);
+                if(snapshot.attr("rev") === rev)
+                {
+                    return false;
+                } else {
+                    return true;
+                }
+            }, function (reason) {
+                // on rejection
+                console.log("promise rejected " + reason);
+                return true;
+            });
+
+        } else {
+            return false;
+        }
     }
 });
