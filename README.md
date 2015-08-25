@@ -1,11 +1,11 @@
-[![Build Status](https://travis-ci.org/ValidUSA/ember-couch.svg?branch=2.0.0-alpha)](https://travis-ci.org/ValidUSA/ember-couch)[![License](https://img.shields.io/badge/license-MIT-blue.svg)](MIT-LICENSE)
+[![Build Status](https://travis-ci.org/ValidUSA/ember-couch.svg?branch=master)](https://travis-ci.org/ValidUSA/ember-couch)[![License](https://img.shields.io/badge/license-MIT-blue.svg)](MIT-LICENSE)
 
 # Ember Couch
 
 An `ember-data` kit for Apache CouchDB. A collection of adapters to work with CouchDB documents, attachments, revisions, and the changes feed. Based off of [ember-couchdb-kit by Aleksey Zatvobor](https://github.com/Zatvobor/ember-couchdb-kit).
 
 ## Version
-Version 0.0.2 of this addon is tested to work with Ember 1.13.6 and Ember Data 1.13.7.
+Version 0.0.3 of this addon is tested to work with Ember 1.13.6 and Ember Data 1.13.7.
 
 ## Installation and Setup
     ember install ember-couch
