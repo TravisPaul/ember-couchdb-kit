@@ -175,6 +175,9 @@ export default DS.Adapter.extend(sharedStore, {
     query: function (store, type, query) {
         var designDoc, normalizeResponse;
         designDoc = query.designDoc || this.get("designDoc");
+        if (query.ids) {
+            return this.findMany(store, type, query.ids);
+        }
         if (!query.options) {
             query.options = {};
         }
