@@ -146,7 +146,7 @@ export default DS.Adapter.extend(sharedStore, {
     findMany: function (store, type, ids) {
         var data,
             normalizeResponse;
-        if (this._checkForRevision(ids[0])) {
+        if (ids.length && this._checkForRevision(ids[0])) {
             return this.findManyWithRev(store, type, ids);
         } else {
             data = {

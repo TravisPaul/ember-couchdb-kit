@@ -5,7 +5,7 @@
 An `ember-data` kit for Apache CouchDB. A collection of adapters to work with CouchDB documents, attachments, revisions, and the changes feed. Based off of [ember-couchdb-kit by Aleksey Zatvobor](https://github.com/Zatvobor/ember-couchdb-kit).
 
 ## Version
-Version 0.0.4 of this addon is tested to work with Ember 2.0.0 and Ember Data 2.0.0.
+Version 0.0.5 of this addon is tested to work with Ember 2.0.0 and Ember Data 2.0.0.
 
 ## Installation and Setup
     ember install ember-couch
