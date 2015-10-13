@@ -27,7 +27,14 @@ export default DS.RESTSerializer.extend(sharedStore, {
     },
     extractMeta: function (store, type, payload) {
         var result = {};
-        if (payload && payload.total_rows) {
+        if (payload && payload.total_rows && payload.total_pages) {
+            result = {
+                total_rows: payload.total_rows,
+                total_pages: payload.total_pages
+            };
+            delete payload.total_rows;
+            delete payload.total_pages;
+        } else if (payload && payload.total_rows) {
             result = {
                 total_rows: payload.total_rows
             };

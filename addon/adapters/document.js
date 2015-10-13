@@ -190,6 +190,9 @@ export default DS.Adapter.extend(sharedStore, {
                 return self._normalizeRevision(doc);
             });
             json.total_rows = data.total_rows;
+            if (query.options.limit) {
+                json.total_pages = Math.ceil(data.total_rows / query.options.limit);
+            }
             return json;
         };
         return this.ajax("_design/" + designDoc + "/_view/" + query.viewName, "GET", normalizeResponse, {
