@@ -143,7 +143,7 @@ export default DS.Adapter.extend(sharedStore, {
         });
         return docs;
     },
-    findMany: function (store, type, ids) {
+    findMany: function (store, type, ids, options) {
         var data,
             normalizeResponse;
         if (ids.length && this._checkForRevision(ids[0])) {
@@ -160,11 +160,23 @@ export default DS.Adapter.extend(sharedStore, {
                 json[Ember.String.pluralize(type.modelName)] = data.rows.map(function (doc) {
                     return self._normalizeRevision(doc);
                 });
+
+                // Gets total_rows and calculates total_pages to aid in pagination.
+                json.total_rows = ids.length;
+                if (options && options.limit) {
+                    json.total_pages = Math.ceil(ids.length / options.limit);
+                }
                 return json;
             };
-            return this.ajax("_all_docs?include_docs=true", "POST", normalizeResponse, {
-                data: data
-            });
+            if (options && options.limit) {
+                return this.ajax("_all_docs?include_docs=true&limit=" + options.limit + "&skip=" + options.skip, "POST", normalizeResponse, {
+                    data: data
+                });
+            } else {
+                return this.ajax("_all_docs?include_docs=true", "POST", normalizeResponse, {
+                    data: data
+                });
+            }
         }
     },
     // DEPRECATED
@@ -175,11 +187,12 @@ export default DS.Adapter.extend(sharedStore, {
     query: function (store, type, query) {
         var designDoc, normalizeResponse;
         designDoc = query.designDoc || this.get("designDoc");
-        if (query.ids) {
-            return this.findMany(store, type, query.ids);
-        }
+
         if (!query.options) {
             query.options = {};
+        }
+        if (query.ids) {
+            return this.findMany(store, type, query.ids, query.options);
         }
         query.options.include_docs = true;
         normalizeResponse = function (data) {

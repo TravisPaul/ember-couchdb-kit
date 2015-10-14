@@ -5,7 +5,7 @@
 An `ember-data` kit for Apache CouchDB. A collection of adapters to work with CouchDB documents, attachments, revisions, and the changes feed. Based off of [ember-couchdb-kit by Aleksey Zatvobor](https://github.com/Zatvobor/ember-couchdb-kit).
 
 ## Version
-Version 0.0.6 of this addon is tested to work with Ember 2.0.0 and Ember Data 2.0.0.
+Version 0.0.7 of this addon is tested to work with Ember 2.0.0 and Ember Data 2.0.0.
 
 ## Installation and Setup
     ember install ember-couch
@@ -42,7 +42,7 @@ If you would like to work with the changes feed, just add this statement to the 
 import { ChangesFeed } from "ember-couch";
 ```
 
-## Features 
+## Features
 Some notable features:
 * natural `findRecord/createRecord/deleteRecord` functions;
 * document's attachments designed as `hasMany` relationship;
