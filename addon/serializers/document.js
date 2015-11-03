@@ -115,8 +115,8 @@ export default DS.RESTSerializer.extend(sharedStore, {
     },
     serializeBelongsTo: function (snapshot, json, relationship) {
         var attribute = relationship.options.attribute || "id",
-            belongsTo = relationship.key,
-            key = snapshot.belongsTo(key);
+            key = relationship.key,
+            belongsTo = snapshot.belongsTo(key);
         if (Ember.isNone(belongsTo)) {
             return;
         }
