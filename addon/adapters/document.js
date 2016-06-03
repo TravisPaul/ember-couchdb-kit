@@ -185,8 +185,9 @@ export default DS.Adapter.extend(sharedStore, {
         return this.query(store, type, query);
     },
     query: function (store, type, query) {
-        var designDoc, normalizeResponse;
+        var designDoc, normalizeResponse, method;
         designDoc = query.designDoc || this.get("designDoc");
+        method = query.method || "GET";
 
         if (!query.options) {
             query.options = {};
@@ -208,7 +209,7 @@ export default DS.Adapter.extend(sharedStore, {
             }
             return json;
         };
-        return this.ajax("_design/" + designDoc + "/_view/" + query.viewName, "GET", normalizeResponse, {
+        return this.ajax("_design/" + designDoc + "/_view/" + query.viewName, method, normalizeResponse, {
             context: this,
             data: query.options
         });
