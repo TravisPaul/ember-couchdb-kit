@@ -280,7 +280,8 @@ export default DS.Adapter.extend(sharedStore, {
         return delete json.history;
     },
     _checkForRevision: function (id) {
-        return id.split("/").length > 1;
+        var ret = id && id.split("/").length > 1;
+        return ret;
     },
     _push: function (store, type, snapshot, json) {
         var id, method, normalizeResponse;
