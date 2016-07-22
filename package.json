@@ -1,6 +1,6 @@
 {
   "name": "ember-couch",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "An Ember.js adapter for Apache CouchDB",
   "directories": {
     "doc": "doc",
