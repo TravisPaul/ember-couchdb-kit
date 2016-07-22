@@ -32,17 +32,20 @@ export default DS.Adapter.extend(sharedStore, {
     },
     createRecord: function (store, type, snapshot) {
         var adapter = this,
-            url = this.buildURL() + "/" + snapshot.record.get("id") + "?rev=" + snapshot.record.get("rev");
+            url = this.buildURL() + "/" + snapshot.record.get("id") + "?rev=" + snapshot.record.get("rev"),
+            self = this;
         return new Ember.RSVP.Promise(function (resolve, reject) {
             var data = {},
-                request = new window.XMLHttpRequest(),
-                self = this;
+                request = new window.XMLHttpRequest();
             data.context = adapter;
             request.open("PUT", url, true);
             request.setRequestHeader("Content-Type", snapshot.attr("content_type"));
             adapter._updateUploadState(snapshot, request);
             request.onreadystatechange = function () {
-                var json;
+                var json,
+                    attObj,
+                    head = new window.XMLHttpRequest(),
+                    headUrlArray = url.split("?");
                 if (request.readyState === 4 && (request.status === 201 || request.status === 200)) {
                     data = JSON.parse(request.response);
                     data.model_name = snapshot.record.model_name;
@@ -51,9 +54,21 @@ export default DS.Adapter.extend(sharedStore, {
                         includeId: true
                     });
                     delete data.id;
-                    return Ember.run(null, resolve, {
-                        attachment: Ember.$.extend(json, data)
-                    });
+                    attObj = Ember.$.extend(json, data);
+                    head.open("HEAD", headUrlArray[0] + "?rev=" + data.rev, true);
+                    head.onreadystatechange = function () {
+                        var md5,
+                            revposArray = data.rev.split("-"),
+                            revpos = parseInt(revposArray, 10);
+                        if (head.readyState === 4 && (head.status === 201 || head.status === 200)) {
+                            md5 = "md5-" + head.getResponseHeader("Content-MD5");
+                            self.addData("attachment", json.id, Ember.$.extend(attObj, {stub: true, digest: md5, revpos: revpos}));
+                            return Ember.run(null, resolve, {
+                                attachment: attObj
+                            });
+                        }
+                    };
+                    return head.send();
                 }
             };
             return request.send(snapshot.record.file);
